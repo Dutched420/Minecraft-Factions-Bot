@@ -1,0 +1,35 @@
+minecraft:
+  serverIP: mc.pvplab.org
+  serverPort: 25565
+  joinCommand: /server nordic
+  version: 1.8.9
+
+discord: # Webhook links, tutorial: https://www.youtube.com/watch?v=fKksxz2Gdnc&ab_channel=NoIntroTutorials
+  botLogs:
+  serverChat:
+  commandLogs:
+  vanishedLogs:
+  ftop:
+  flist:
+
+  webhookUrl: https://cdn.discordapp.com/attachments/801944189830692864/815993687041507348/pack.png # Avatar of your Webhook
+  webhookColor: 8f04d4 # Needs to be a HEX color code without the "#" 
+
+
+settings:
+  prefix: "!"
+  ftopCommand: "/f top" # Change this to the command that shows FTOP in chat
+  vanishCheck: false # Enable vanish check?
+  useChat: true # Allow the bot to use chat
+
+layouts: # Follow your server's setup
+  flist: "[Faction] [Online]/[Max] online, [Claims]"
+
+times: # Number in minutes
+  ftop: 30
+  flist: 10
+  vanishCheck: 1
+
+whitelist: # CaSe SeNsItIvE
+  - GetDutched
+  - BigGamer420
