@@ -1,4 +1,4 @@
-import { flistWebhook, ftopWebhook, vanishedWebhook } from "../utils/logs.js";
+import { flistWebhook, ftopWebhook, vanishedWebhook, vanishedExploitPatchedWebhook } from "../utils/logs.js";
 import { flistData, ftopData } from "./createBot.js";
 import EasyMatch from "@notlegend/easymatch";
 let matcher = new EasyMatch("[", "]");
@@ -11,8 +11,8 @@ export function vanish(bot) {
     let vanished = [];
     bot.tabComplete("/tell", (data, players) => {
         if(players.length === 0) {
-            
-        }
+            return vanishedExploitPatchedWebhook();
+        };
         players.foreach(player => {
             if(bot.players[player] == undefined) {
                 if(player != "*" || player != "**") {
