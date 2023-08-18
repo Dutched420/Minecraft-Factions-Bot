@@ -1,5 +1,5 @@
-import { startMessage } from "./src/utils/logs.js";
-import { startBot } from "./src/minecraft/createBot.js";
+import { startMessage } from "./utils/logs.js";
+import { startBot } from "./minecraft/createBot.js";
 
 const name = "Dutched's Factions Bot";
 const version = "1.0.0";
