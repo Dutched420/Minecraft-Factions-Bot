@@ -15,5 +15,8 @@
     "discord-webhook-node": "^1.1.8",
     "js-yaml": "^4.1.0",
     "mineflayer": "^4.10.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
   }
 }
