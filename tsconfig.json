@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowJs": true, // disable when finished porting over to typescript
     "target": "ESNext",
     "module": "Node16",
     "lib": ["ESNext"],
