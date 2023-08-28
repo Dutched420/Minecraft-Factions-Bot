@@ -2,10 +2,10 @@
   "name": "factionsbot",
   "version": "1.0.1",
   "description": "A free factions bot",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "start": "npm i;npx tsc;node dist/src/index.js"
+    "start": "npm i&&node ./src/index.js"
   },
   "author": "Dutch",
   "license": "ISC",
