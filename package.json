@@ -1,11 +1,11 @@
 {
   "name": "factionsbot",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "A free factions bot",
-  "main": "src/index.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "npm i&&node ./src/index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dutch",
   "license": "ISC",
@@ -15,8 +15,5 @@
     "discord-webhook-node": "^1.1.8",
     "js-yaml": "^4.1.0",
     "mineflayer": "^4.10.1"
-  },
-  "devDependencies": {
-    "typescript": "^5.1.6"
   }
 }

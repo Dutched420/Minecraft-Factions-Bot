@@ -8,10 +8,6 @@ import { autoFtop, autoFlist, autoVanish } from "./autoCommands.js";
 let config = yaml.load(fs.readFileSync(`${process.cwd()}/config.yaml`, "utf8"));
 const wait = (waitTimeInMs) => new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
 
-function startsWithNumber(string) {
-    return /^\d/.test(string);
-};
-
 export let ftopData = [];
 export let flistData = [];
 
@@ -43,10 +39,8 @@ export function startBot(name, version) {
         if(parsedMessage.includes("@") || parsedMessage.includes("`") || parsedMessage.length === 0) return;
         botServerChat(message);
 
-        if(startsWithNumber(parsedMessage)) {
-            let cleanParsed = parsedMessage.replace("!", "");
-            ftopData.push(cleanParsed);
-        };
+        let cleanParsed = parsedMessage.replace("!", "");
+        ftopData.push(cleanParsed);
 
         flistData.push(parsedMessage);
 
@@ -116,6 +110,9 @@ export function startBot(name, version) {
                 };
             };
         };
+    });
+    bot.on("end", () => {
+        startBot(name, version);
     });
     if(config.settings.vanishCheck) {
         setInterval(() => {

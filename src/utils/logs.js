@@ -85,7 +85,6 @@ export function ftopWebhook(ftop) {
 export function flistWebhook(flist) {
     const embed = new MessageBuilder()
         .setAuthor("Factions List", logo)
-        // .setTitle("📑 Factions List")
         .setColor("#" + config.discord.webhookColor)
         .setDescription(flist)
         .setFooter(config.minecraft.serverIP)
