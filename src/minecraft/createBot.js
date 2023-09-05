@@ -1,7 +1,7 @@
 import yaml from "js-yaml";
 import fs from "fs";
 import mineflayer from "mineflayer";
-import { botLoggedOn, botServerChat, botWarped } from "../utils/logs.js";
+import { botLoggedOn, botServerChat, botWarped, ftopWebhook } from "../utils/logs.js";
 import { vanish, ftop, flist } from "./commands.js";
 import { autoFtop, autoFlist, autoVanish } from "./autoCommands.js";
 
@@ -13,6 +13,7 @@ export let flistData = [];
 
 export function startBot(name, version) {
     let bot = mineflayer.createBot({
+        email: "",
         auth: "microsoft",
         host: config.minecraft.serverIP,
         port: config.minecraft.serverPort,
@@ -20,7 +21,7 @@ export function startBot(name, version) {
         hideErrors: config.minecraft.hideErrors,
     });
 
-    bot.on("login", async () => {
+    bot.once("login", async () => {
         bot.settings.viewDistance = "tiny";
         await wait(3000).then(() => {
             bot.chat(config.minecraft.joinCommand);
@@ -29,6 +30,7 @@ export function startBot(name, version) {
         await wait(3000).then(() => {
             bot.chat(config.settings.ftopCommand);
             bot.chat("/f list");
+            bot.chat("/f join monke")
         });
         botWarped(bot, name, version);
     });
@@ -38,9 +40,6 @@ export function startBot(name, version) {
 
         if(parsedMessage.includes("@") || parsedMessage.includes("`") || parsedMessage.length === 0) return;
         botServerChat(message);
-
-        let cleanParsed = parsedMessage.replace("!", "");
-        ftopData.push(cleanParsed);
 
         flistData.push(parsedMessage);
 
@@ -82,16 +81,14 @@ export function startBot(name, version) {
                         case "vanish":
                             if(config.settings.vanishCheck) {
                                 vanish(bot);
-                            } else {
-                                bot.chat("/r Vanish checker is disabled")
                             };
                         break;
 
                         case "ftop":
                             bot.chat(config.settings.ftopCommand);
-                            await wait(500).then(() => {
-                                ftop();
-                            });
+                            // await wait(500).then(() => {
+                            //     ftop();
+                            // });
                             ftopData = [];
                         break;
 
@@ -112,7 +109,29 @@ export function startBot(name, version) {
         };
     });
     bot.on("end", () => {
+        bot = [];
         startBot(name, version);
+    });
+    bot.on("windowOpen", window => {
+        ftopData = [];
+        window.slots.forEach((item) => {
+            if(item && item.nbt && item.nbt.value.display.value.Lore && item.name === "skull") {
+                const factionName = item.nbt.value.display.value.Name.value
+                    .replace("§e§l Faction §7", "")
+                    .replace("§4")
+                    .replace("§4§l", "");
+                const factionInfo = item.nbt.value.display.value.Lore.value.value;
+                let faction = {
+                    name: item.nbt.value.display.value.Name.value.replace("§e§l Faction §7", "").replace("§4§l", ""),
+                    place: factionInfo[1].replace("§e§l►§a Place §f#", ""),
+                    value: factionInfo[2].replace("§e§l►§b Worth §f$", "").replace("§8", "").replace("§c", "").replace("§2", "")
+                };
+                if(factionName && factionInfo && !factionName.includes("?")) {
+                    ftopData.push(faction);
+                };
+            };
+        });
+        ftopWebhook()
     });
     if(config.settings.vanishCheck) {
         setInterval(() => {
@@ -120,8 +139,7 @@ export function startBot(name, version) {
         }, config.times.vanishCheck * 60 * 1000)
     };
     setInterval(() => {
-        autoFtop(bot);
-        ftopData = [];       
+        bot.chat("/f top");  
     }, config.times.ftop * 60 * 1000);
     setInterval(() => {
         autoFlist(bot);
