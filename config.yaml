@@ -1,7 +1,7 @@
 minecraft:
-  serverIP: play.pika-network.net
-  serverPort: 25565
-  joinCommand: /server opfactions
+  serverIP:
+  serverPort:
+  joinCommand:
   version: 1.8.9
 
 discord: # Webhook links, tutorial: https://www.youtube.com/watch?v=fKksxz2Gdnc&ab_channel=NoIntroTutorials
@@ -22,14 +22,15 @@ settings:
   vanishCheck: true # Enable vanish check?
   useChat: true # Allow the bot to use chat
 
-layouts:   # Pika-Network version (Don't change flist, no need for FTOP)
-  flist: "     * &Faction& (&Online&/&Max&) »    &Claims&"
+layouts: # Follow your server's setup
+  flist: "     * [Faction] ([Online]/[Max]) »    [Claims]"
+  ftop: " &Prefix& #&Standing& &Faction&: &Value&M" # [&RisenValue&] is left out
 
 times: # Number in minutes
-  ftop: 5
-  flist: 30
+  ftop: 10
+  flist: 3
   vanishCheck: 1
 
 whitelist: # CaSe SeNsItIvE
   - GetDutched
-  - BigGamer420
+  - SomeOneElse
