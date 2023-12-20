@@ -27,12 +27,27 @@ export function vanish(bot) {
 };
 
 export function ftop() {
-    ftopWebhook(ftopData);
+    let i = 1;
+    let ftop = "";
+    let ftopMessage = config.layouts.ftop;
+
+    ftopData.forEach(eachLine => {
+        let matchResult = matcher.match(eachLine, ftopMessage);
+        let foundFtop = true;
+        for (let i in matchResult) {
+            if(matchResult[i] == null) foundFtop = false;
+        };
+        if(foundFtop) {
+            ftop += `**${i}.** ${matchResult.Faction} ${matchResult.Value} [${matchResult.RisenValue}]\n`;
+            i++;
+        };
+    });
+    ftopWebhook(ftop);
 };
 
 export function flist() {
     let i = 1;
-    let flist = [];
+    let flist = "";
     let flistMessage = config.layouts.flist;
 
     flistData.forEach(eachLine => {
@@ -43,12 +58,7 @@ export function flist() {
             };
             if(foundFlist) {
                 if(!matchResult.Faction.includes("-")) {
-                let faction = {
-                    name: `**${i}** ${matchResult.Faction}\n`,
-                    online: `${matchResult.Online}/${matchResult.Max}\n`,
-                    claims: `${matchResult.Claims}\n`
-                }
-                flist.push(faction);
+                flist += `**${i}.** ${matchResult.Faction} ${matchResult.Online}/${matchResult.Max} online\n`
                 i++;
             };
         };
